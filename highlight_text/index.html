@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Выделение текста</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- PROGRESS ONLY (без верхнего текста/целей) -->
+    <div class="progress-wrap" aria-label="Прогресс">
+      <div class="progress-row">
+        <div class="progress-text">
+          Прогресс: <b><span id="progressCount">0</span>/<span id="progressTotal">10</span></b>
+          <span class="level">Уровень: <b id="levelText">1</b></span>
+        </div>
+        <button id="resetBtn" class="ghost" type="button">Сброс</button>
+      </div>
+      <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <div class="main">
+      <button id="startButton" class="primary">СТАРТ</button>
+
+      <!-- это место теперь будет показывать: "Выдели..." или "Верно/Неверно" -->
+      <div id="statusLine" class="statusLine" style="display:none;">Выдели весь текст внутри рамки:</div>
+
+      <div class="text-frame" id="selectableTextContainer" style="display:none;">
+        <div id="selectableText"></div>
+      </div>
+    </div>
+
+    <!-- WIN MODAL -->
+    <div class="modal-backdrop" id="winModal" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true" aria-label="Победа">
+        <div class="modal-header">
+          <div class="modal-title">Победа! 🎉</div>
+          <button class="modal-close" id="closeModal" type="button" aria-label="Закрыть">✕</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="win-image" id="winImage"></div>
+          <p class="modal-text">Навык выделения текста прокачан!</p>
+        </div>
+
+        <div class="modal-actions">
+          <button id="restartButton" class="primary" type="button">РЕСТАРТ</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
