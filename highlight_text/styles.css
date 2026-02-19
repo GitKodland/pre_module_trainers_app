@@ -30,7 +30,7 @@ body{
   box-shadow:var(--shadow);
   border:1px solid rgba(255,255,255,0.16);
 
-  /* затемняем фон, чтобы всё читалось */
+  /* darkening the background so everything is legible */
   background: linear-gradient(180deg, rgba(10,18,35,0.62), rgba(10,18,35,0.45));
   backdrop-filter: blur(10px);
 }
@@ -137,7 +137,7 @@ body{
   word-spacing: 10px;
   user-select:text;
 
-  /* ВАЖНО: фиксируем высоту области текста, иначе проверка "влезает/не влезает" бессмысленна */
+  /* IMPORTANT: fix the text area height, otherwise the "fits/doesn't fit" check is meaningless */
   height: 90px;
   overflow: hidden;
 }
