@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // victory svg
   winImage.innerHTML = `
-    <svg width="92%" height="92%" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Победа">
+    <svg width="92%" height="92%" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="You Win">
       <defs>
         <linearGradient id="g" x1="0" x2="1">
           <stop offset="0" stop-color="#4CAF50"/>
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <path d="M130 165l20 22 44-54" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
       <text x="280" y="150" fill="#fff" font-size="44" font-weight="900" font-family="Segoe UI, Arial">COPY & PASTE</text>
       <text x="280" y="200" fill="rgba(255,255,255,0.85)" font-size="22" font-weight="700" font-family="Segoe UI, Arial">
-        Навык прокачан
+        Skill levelled up
       </text>
     </svg>
   `;
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     statusTimer = setTimeout(() => {
       statusLine.classList.remove("ok", "bad");
-      statusLine.textContent = "Скопируй и вставь текст:";
+      statusLine.textContent = "Copy and paste the text:";
     }, ms);
   }
 
@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
     statusTimer = null;
   }
 
-  // ====== GENERATION: как в предыдущем — разный текст, разной длины, влезает ======
+  // ====== GENERATION: as in the previous one — varied text of varying lengths that fits ======
   function makeToken(len) {
     const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789^%$&@!?#";
     let out = "";
@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function generateTargetTextFit() {
     const maxAttempts = 40;
 
-    // уровнем можно чуть увеличивать сложность
+    // difficulty can be increased slightly with each level
     const tokensMin = 3;
     const tokensMax = Math.min(9, 6 + Math.floor(round / 2));
     const tokenLenMin = 5;
@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const candidate = tokens.join(" ");
       randomTextEl.textContent = candidate;
 
-      // если не вылезает по высоте — ок
+      //  ok as long as it doesn't overflow by height
       if (randomTextEl.scrollHeight <= randomTextEl.clientHeight + 2) {
         targetText = candidate;
         return;
@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
     randomTextEl.classList.remove("good", "bad");
     generateTargetTextFit();
 
-    // убираем любое прошлое выделение
+    // removing any previous selection
     const sel = window.getSelection();
     if (sel) sel.removeAllRanges();
   }
@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
     started = true;
     startButton.style.display = "none";
     statusLine.style.display = "block";
-    statusLine.textContent = "Скопируй и вставь текст:";
+    statusLine.textContent = "Copy and paste the text:";
     gameContainer.style.display = "grid";
     setProgressUI();
     newRound();
@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       randomTextEl.classList.add("good");
       randomTextEl.classList.remove("bad");
-      showStatus("ВЕРНО ✅", "ok", 2500);
+      showStatus("CORRECT ✅", "ok", 2500);
 
       if (round >= TOTAL_ROUNDS) {
         openModal();
@@ -200,9 +200,9 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       randomTextEl.classList.add("bad");
       randomTextEl.classList.remove("good");
-      showStatus("НЕВЕРНО ❌", "bad", 2500);
+      showStatus("INCORRECT ❌", "bad", 2500);
 
-      // очищаем, чтобы не “дописывали”, а вставляли заново
+      // clearing so they would paste anew, rather than 'appending'
       setTimeout(() => {
         pasteArea.value = "";
         pasteArea.focus();
