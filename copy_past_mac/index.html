@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,14 +10,14 @@
 
 <div class="container">
 
-  <!-- Прогресс (без верхнего текста/целей) -->
-  <div class="progress-wrap" aria-label="Прогресс">
+  <!-- Progress (no top text/goals) -->
+  <div class="progress-wrap" aria-label="Progress">
     <div class="progress-row">
       <div class="progress-text">
-        Прогресс: <b><span id="progressCount">0</span>/<span id="progressTotal">10</span></b>
-        <span class="level">Уровень: <b id="levelText">1</b></span>
+        Progress: <b><span id="progressCount">0</span>/<span id="progressTotal">10</span></b>
+        <span class="level">Level: <b id="levelText">1</b></span>
       </div>
-      <button id="resetBtn" class="ghost" type="button">Сброс</button>
+      <button id="resetBtn" class="ghost" type="button">Reset</button>
     </div>
     <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0">
       <div class="progress-fill" id="progressFill"></div>
@@ -25,20 +25,20 @@
   </div>
 
   <div class="main">
-    <button id="startButton" class="primary">СТАРТ</button>
+    <button id="startButton" class="primary">START</button>
 
-    <!-- Статус: тут будет инструкция или ВЕРНО/НЕВЕРНО -->
-    <div id="statusLine" class="statusLine" style="display:none;">Скопируй и вставь текст:</div>
+    <!-- Status: this will contain the CORRECT/INCORRECT instruction -->
+    <div id="statusLine" class="statusLine" style="display:none;">Copy and paste the text:</div>
 
     <div class="game" id="gameContainer" style="display:none;">
       <div class="task">
-        <div class="taskLabel">Текст для копирования:</div>
+        <div class="taskLabel">Text to copy:</div>
         <div id="randomText" class="randomText"></div>
       </div>
 
-      <div id="inputField" class="inputField" contenteditable="true" aria-label="Поле для вставки"></div>
+      <div id="inputField" class="inputField" contenteditable="true" aria-label="Paste field"></div>
 
-      <div class="keyboard" aria-label="Клавиатура">
+      <div class="keyboard" aria-label="Keyboard">
         <div class="key" id="cmdKey">⌘ Command</div>
         <div class="key" id="cKey">C</div>
         <div class="key" id="vKey">V</div>
@@ -48,19 +48,19 @@
 
   <!-- WIN MODAL -->
   <div class="modal-backdrop" id="winModal" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Победа">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="You Win">
       <div class="modal-header">
-        <div class="modal-title">Победа! 🎉</div>
-        <button class="modal-close" id="closeModal" type="button" aria-label="Закрыть">✕</button>
+        <div class="modal-title">You Win! 🎉</div>
+        <button class="modal-close" id="closeModal" type="button" aria-label="Close">✕</button>
       </div>
 
       <div class="modal-body">
         <div class="win-image" id="winImage"></div>
-        <p class="modal-text">Навык копировать/вставить на Mac прокачан!</p>
+        <p class="modal-text">Your copy/paste skill on Mac has been levelled up!</p>
       </div>
 
       <div class="modal-actions">
-        <button id="restartButton" class="primary" type="button">РЕСТАРТ</button>
+        <button id="restartButton" class="primary" type="button">RESTART</button>
       </div>
     </div>
   </div>
