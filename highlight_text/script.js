@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Victory image (inline SVG)
   winImage.innerHTML = `
-    <svg width="92%" height="92%" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Победа">
+    <svg width="92%" height="92%" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="You Win">
       <defs>
         <linearGradient id="g" x1="0" x2="1">
           <stop offset="0" stop-color="#4CAF50"/>
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </g>
       <text x="280" y="150" fill="#fff" font-size="44" font-weight="900" font-family="Segoe UI, Arial">VERIFIED!</text>
       <text x="280" y="200" fill="rgba(255,255,255,0.85)" font-size="22" font-weight="700" font-family="Segoe UI, Arial">
-        Навык выделения прокачан
+        Selection skill levelled up
       </text>
     </svg>
   `;
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     statusTimer = setTimeout(() => {
       statusLine.classList.remove("ok", "bad");
-      statusLine.textContent = "Выдели весь текст внутри рамки:";
+      statusLine.textContent = "Select all the text inside the box:";
     }, ms);
   }
 
@@ -112,13 +112,13 @@ document.addEventListener("DOMContentLoaded", () => {
     statusTimer = null;
   }
 
-  // ====== GENERATION: разные строки, разной длины, но чтобы влезали ======
+  // ====== GENERATION: different strings of varying lengths, but they must fit ======
   function randInt(a, b) {
     return Math.floor(Math.random() * (b - a + 1)) + a;
   }
 
   function makeToken(len) {
-    // без пробелов внутри токена, но могут быть спецсимволы
+    // no spaces within a token, but special characters are allowed
     const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789^%$&@!?#";
     let out = "";
     for (let i = 0; i < len; i++) out += chars[randInt(0, chars.length - 1)];
@@ -126,11 +126,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function generateTargetTextFit() {
-    // Цель: 1–2 строки в поле (примерно), пробелы между токенами обязательны
-    // Пробуем несколько раз, пока не влезет по высоте.
+    // Goal: 1–2 lines in the field (approximately), spaces between tokens are required
+    // Trying several times until it fits by height.
     const maxAttempts = 40;
 
-    // Параметры длины (можешь подкрутить)
+    // Length parameters (these can be tweaked)
     const tokensMin = 3;
     const tokensMax = 8;
     const tokenLenMin = 5;
@@ -147,15 +147,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const candidate = tokens.join(" ");
       selectableText.textContent = candidate;
 
-      // Проверяем, не вылезло ли по высоте (важно после отрисовки)
-      // clientHeight — видимая высота, scrollHeight — нужная высота контента
+      // Check whether it overflows by height (important after rendering)
+      // clientHeight — visible height, scrollHeight — required content height
       if (selectableText.scrollHeight <= selectableText.clientHeight + 2) {
         targetText = candidate;
         return;
       }
     }
 
-    // Если не удалось — ставим гарантированно короткий вариант
+    // If it didn't fit — fall back to a guaranteed short variant
     targetText = `${makeToken(10)} ${makeToken(8)} ${makeToken(7)} ${makeToken(6)}`;
     selectableText.textContent = targetText;
   }
@@ -167,10 +167,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     statusLine.style.display = "block";
     statusLine.classList.remove("ok", "bad");
-    statusLine.textContent = "Выдели весь текст внутри рамки:";
+    statusLine.textContent = "Select all the text inside the box:";
 
-    // ВАЖНО: чтобы влезало, нужно ограничить высоту области текста.
-    // Если у тебя в CSS нет фиксированной высоты — добавь (см. ниже в примечании).
+    // IMPORTANT: to make things fit, the text area height must be constrained.
+    // If your CSS has no fixed height — add one (see note below).
     generateTargetTextFit();
 
     setProgressUI();
@@ -210,19 +210,19 @@ document.addEventListener("DOMContentLoaded", () => {
       textFrame.classList.add("good");
       textFrame.classList.remove("bad");
 
-      showStatus("ВЕРНО ✅", "ok", 2500);
+      showStatus("CORRECT ✅", "ok", 2500);
       window.getSelection()?.removeAllRanges();
 
       if (round >= TOTAL_ROUNDS) {
         openModal();
       } else {
-        // новый текст каждый раз
+        // new text each time
         generateTargetTextFit();
       }
     } else {
       textFrame.classList.add("bad");
       textFrame.classList.remove("good");
-      showStatus("НЕВЕРНО ❌", "bad", 2500);
+      showStatus("INCORRECT ❌", "bad", 2500);
     }
   }
 
