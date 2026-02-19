@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Victory SVG
   winImage.innerHTML = `
-    <svg width="92%" height="92%" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Победа">
+    <svg width="92%" height="92%" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="You Win">
       <defs>
         <linearGradient id="g" x1="0" x2="1">
           <stop offset="0" stop-color="#4CAF50"/>
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <path d="M130 165l20 22 44-54" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
       <text x="280" y="150" fill="#fff" font-size="44" font-weight="900" font-family="Segoe UI, Arial">MAC PRO!</text>
       <text x="280" y="200" fill="rgba(255,255,255,0.85)" font-size="22" font-weight="700" font-family="Segoe UI, Arial">
-        Copy & Paste прокачан
+        Copy & Paste levelled up
       </text>
     </svg>
   `;
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     statusTimer = setTimeout(() => {
       statusLine.classList.remove("ok", "bad");
-      statusLine.textContent = "Скопируй и вставь текст:";
+      statusLine.textContent = "Copy and paste the text:";
     }, ms);
   }
 
@@ -137,8 +137,8 @@ document.addEventListener("DOMContentLoaded", () => {
     return out;
   }
 
-  // Текст: как в примере, обязательно пробелы между токенами,
-  // и разная длина, но ВЛЕЗАЕТ в блок (по высоте).
+  // Text: as in the example, spaces between tokens are required,
+  // and varying lengths, but must FIT within the block (by height).
   function generateTargetTextFit() {
     const maxAttempts = 50;
 
@@ -172,11 +172,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     generateTargetTextFit();
 
-    // СНЯТЬ ЛЮБОЕ ВЫДЕЛЕНИЕ (как ты просил)
+    // REMOVE ANY SELECTION (as requested)
     const sel = window.getSelection();
     if (sel) sel.removeAllRanges();
 
-    // фокус в поле — пусть вставляют
+    // focus on the field — let them paste
     setTimeout(() => inputField.focus(), 0);
   }
 
@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
     started = true;
     startButton.style.display = "none";
     statusLine.style.display = "block";
-    statusLine.textContent = "Скопируй и вставь текст:";
+    statusLine.textContent = "Copy and paste the text:";
     gameContainer.style.display = "grid";
     setProgressUI();
     newRound();
@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       randomTextEl.classList.add("good");
       randomTextEl.classList.remove("bad");
-      showStatus("ВЕРНО ✅", "ok", 2500);
+      showStatus("CORRECT ✅", "ok", 2500);
 
       if (round >= TOTAL_ROUNDS) {
         openModal();
@@ -215,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       randomTextEl.classList.add("bad");
       randomTextEl.classList.remove("good");
-      showStatus("НЕВЕРНО ❌", "bad", 2500);
+      showStatus("INCORRECT ❌", "bad", 2500);
 
       setTimeout(() => {
         inputField.textContent = "";
@@ -224,7 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Подсветка клавиш (Mac): Meta = ⌘
+  // Key highlighting (Mac): Meta = ⌘
   document.addEventListener("keydown", (event) => {
     const k = event.key.toLowerCase();
 
@@ -232,7 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (k === "c") cKey.classList.add("pressed");
     if (k === "v") vKey.classList.add("pressed");
 
-    // фиксируем что юзали ⌘
+    // Recording that ⌘ was used
     if (event.metaKey) lastAction.usedCmd = true;
   });
 
@@ -246,11 +246,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("blur", resetKeysState);
 
-  // Считаем copy/paste (не обязательно, но полезно для честности)
+  // Counting copy/paste (optional, but useful for fairness)
   document.addEventListener("copy", () => { lastAction.copied = true; });
   inputField.addEventListener("paste", () => { lastAction.pasted = true; });
 
-  // Проверка ответа — по input
+  //Checking the answer via input
   inputField.addEventListener("input", checkAnswer);
 
   // buttons
