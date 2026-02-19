@@ -146,7 +146,7 @@ body{
 
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-  /* чтобы влезало и было понятно */
+  /* so everything fits and is legible */
   min-height:72px;
   user-select:text;
   word-break: break-word;
